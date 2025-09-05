@@ -26,7 +26,7 @@ python-dotenv
 
 
 
-2\. Lakukan instalasi terhadap dependencies yang ada dengan perintah berikut. Jangan lupa jalankan virtual environment terlebih dahulu sebelum menjalankan perintah berikut.
+2. Lakukan instalasi terhadap dependencies yang ada dengan perintah berikut. Jangan lupa jalankan virtual environment terlebih dahulu sebelum menjalankan perintah berikut.
 
 
 
@@ -34,11 +34,11 @@ python-dotenv
 
 
 
-3\. Buat proyek Django bernama `football\_shop` dengan perintah berikut.
+3. Buat proyek Django bernama `football_shop` dengan perintah berikut.
 
 
 
-`django-admin startproject football\_shop .`
+`django-admin startproject football_shop .`
 
 
 
@@ -68,21 +68,21 @@ Jika kamu masih bingung mengenai istilah-istilah baru seperti direktori utama, d
 
 
 
-2\. Mendaftarkan aplikasi main ke dalam proyek.
+2. Mendaftarkan aplikasi main ke dalam proyek.
 
 
 
-Buka berkas `settings.py` di dalam direktori proyek `football\_shop`.
+Buka berkas `settings.py` di dalam direktori proyek `football_shop`.
 
 
 
-Tambahkan `main` ke dalam daftar aplikasi yang ada sebagai elemen paling terakhir. Daftar aplikasi dapat kamu akses pada variabel `INSTALLED\_APPS`.
+Tambahkan `main` ke dalam daftar aplikasi yang ada sebagai elemen paling terakhir. Daftar aplikasi dapat kamu akses pada variabel `INSTALLED_APPS`.
 
 
 
 ```
 
-INSTALLED\_APPS = \[
+INSTALLED_APPS = [
 
     ...,
 
@@ -106,7 +106,7 @@ Dengan melakukan langkah-langkah tersebut, kamu telah mendaftarkan aplikasi main
 
 1. Buka berkas urls.py di dalam direktori proyek football-news, bukan yang ada di dalam direktori aplikasi main.
 
-2\. Impor fungsi include dari `django.urls`.
+2. Impor fungsi include dari `django.urls`.
 
 
 
@@ -122,13 +122,13 @@ from django.urls import path, include
 
 
 
-3\. Tambahkan rute URL berikut untuk mengarahkan ke tampilan main di dalam list urlpatterns.
+3. Tambahkan rute URL berikut untuk mengarahkan ke tampilan main di dalam list urlpatterns.
 
 
 
 ```
 
-urlpatterns = \[
+urlpatterns = [
 
     ...
 
@@ -142,9 +142,9 @@ urlpatterns = \[
 
 
 
-4\. Jalankan proyek Django kamu dengan python manage.py runserver.
+4. Jalankan proyek Django kamu dengan python manage.py runserver.
 
-5\. Bukalah `http://localhost:8000/` di web browser untuk melihat halaman yang sudah kamu buat.
+5. Bukalah `http://localhost:8000/` di web browser untuk melihat halaman yang sudah kamu buat.
 
 
 
@@ -172,7 +172,7 @@ from django.db import models
 
 class Product(models.Model):
 
-    CATEGORY\_CHOICES = \[
+    CATEGORY_CHOICES = [
 
         ('transfer', 'Transfer'),
 
@@ -190,31 +190,31 @@ class Product(models.Model):
 
  
 
-    id = models.UUIDField(primary\_key=True, default=uuid.uuid4, editable=False)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 
-    name = models.CharField(max\_length = 255)
+    name = models.CharField(max_length = 255)
 
     price = models.IntegerField(default = 0)
 
     description = models.TextField()
 
-    category = models.CharField(max\_length=20, choices=CATEGORY\_CHOICES, default='update')
+    category = models.CharField(max_length=20, choices=CATEGORY_CHOICES, default='update')
 
     thumbnail = models.URLField(blank=True, null=True)
 
     quantity = models.PositiveIntegerField(default=0)
 
-    brand = models.CharField(max\_length=255)
+    brand = models.CharField(max_length=255)
 
-    year\_of\_manufacture = models.IntegerField(default=2025) # Tahun pembuatan produk
+    year_of_manufacture = models.IntegerField(default=2025) # Tahun pembuatan produk
 
-    year\_of\_product = models.IntegerField(default=2025) # Tahun produk muncul di toko bola
+    year_of_product = models.IntegerField(default=2025) # Tahun produk muncul di toko bola
 
-    is\_featured = models.BooleanField(default=False)
+    is_featured = models.BooleanField(default=False)
 
  
 
-    def \_\_str\_\_(self):
+    def __str__(self):
 
         return self.title
 
@@ -226,9 +226,9 @@ Cara membuat sebuah routing pada `urls.py` aplikasi main untuk memetakan fungsi 
 
 
 
-1\.	Buatlah berkas `urls.py` di dalam direktori `main`.
+1.	Buatlah berkas `urls.py` di dalam direktori `main`.
 
-2\.	Isi `urls.py` dengan kode berikut:
+2.	Isi `urls.py` dengan kode berikut:
 
 
 
@@ -236,17 +236,17 @@ Cara membuat sebuah routing pada `urls.py` aplikasi main untuk memetakan fungsi 
 
 from django.urls import path
 
-from main.views import show\_main
+from main.views import show_main
 
 
 
-app\_name = 'main'
+app_name = 'main'
 
 
 
-urlpatterns = \[
+urlpatterns = [
 
-    path('', show\_main, name='show\_main'),
+    path('', show_main, name='show_main'),
 
 ]
 
@@ -262,7 +262,7 @@ Pada tahap ini, kamu akan menghubungkan komponen view dengan komponen template m
 
 Langkah 1: Mengintegrasikan Komponen MVT
 
-Kamu akan mengimpor modul yang diperlukan dan membuat fungsi view `show\_main`.
+Kamu akan mengimpor modul yang diperlukan dan membuat fungsi view `show_main`.
 
 
 
@@ -290,13 +290,13 @@ Penjelasan Kode:
 
 Fungsi render akan digunakan untuk render tampilan HTML dengan menggunakan data yang diberikan.
 
-Tambahkan fungsi `show\_main` di bawah impor:
+Tambahkan fungsi `show_main` di bawah impor:
 
 
 
 ```
 
-def show\_main(request):
+def show_main(request):
 
     context = {
 
@@ -320,7 +320,7 @@ Penjelasan Kode:
 
 
 
-Potongan kode di atas mendeklarasikan fungsi `show\_main`, yang menerima parameter request. Fungsi ini akan mengatur permintaan HTTP dan mengembalikan tampilan yang sesuai.
+Potongan kode di atas mendeklarasikan fungsi `show_main`, yang menerima parameter request. Fungsi ini akan mengatur permintaan HTTP dan mengembalikan tampilan yang sesuai.
 
 
 
@@ -414,7 +414,7 @@ Tambahkan rute URL berikut untuk mengarahkan ke tampilan main di dalam list `url
 
 ```
 
-urlpatterns = \[
+urlpatterns = [
 
     ...
 
@@ -438,7 +438,7 @@ urlpatterns = \[
 
 
 
-2\. Jalankan perintah berikut untuk menerapkan migrasi ke dalam basis data lokal.
+2. Jalankan perintah berikut untuk menerapkan migrasi ke dalam basis data lokal.
 
 
 
@@ -446,7 +446,7 @@ urlpatterns = \[
 
 
 
-3\. Simpan semua perubahan ke GitHub dan PWS:
+3. Simpan semua perubahan ke GitHub dan PWS:
 
 ```
 
@@ -468,13 +468,13 @@ git push pws master
 
 Link bagan: https://drive.google.com/file/d/1hoyReMOa3Q3JQk4O3hvuKEK9HosL7BuX/view?usp=sharing
 
-Penjelasan bagan tersebut mengenai kaitan antara urls.py, views.py, models.py, dan berkas html: Di kotak "Client Request (Browser / HTTP)", ada metode show\_main(request) dan metode render(request, "main.html", context) di file views.py yang me-*render* main.html, lalu di kotak "urls.py Level Projek Django", jalanlah urls.py. Omong-omong, alur permintaan di bagan adalah "jalan" yang dilalui oleh permintaan pengguna, sedangkan models.py adalah "peta" dari data yang ada di "tujuan" jalan tersebut. Permintaan dari pengguna, misalnya untuk mendapatkan daftar produk, akan mengikuti alur di bagan, dan *view* yang dituju akan berinteraksi dengan model Product untuk mendapatkan data yang diperlukan dari database dan mengirimkannya kembali ke pengguna.
+Penjelasan bagan tersebut mengenai kaitan antara urls.py, views.py, models.py, dan berkas html: Di kotak "Client Request (Browser / HTTP)", ada metode show_main(request) dan metode render(request, "main.html", context) di file views.py yang me-*render* main.html, lalu di kotak "urls.py Level Projek Django", jalanlah urls.py. Omong-omong, alur permintaan di bagan adalah "jalan" yang dilalui oleh permintaan pengguna, sedangkan models.py adalah "peta" dari data yang ada di "tujuan" jalan tersebut. Permintaan dari pengguna, misalnya untuk mendapatkan daftar produk, akan mengikuti alur di bagan, dan *view* yang dituju akan berinteraksi dengan model Product untuk mendapatkan data yang diperlukan dari database dan mengirimkannya kembali ke pengguna.
 
 
 
 ### Jelaskan peran `settings.py` dalam proyek Django!
 
-Peran settings.py dalam proyek Django adalah me-*load* variabel *environment* dari *file* .env, meladeni *hosts* di dalam variabel ALLOWED\_HOSTS yang mengizinkan *host* tertentu untuk dijalankan sekaligus menghindari serangan HTTP *host header*, mendefinisikan aplikasi yang diinstal, *middleware*, konfigurasi *root* URL, *template-template*, aplikasi WSGI, konfigurasi *database*, validasi kata sandi, dan lain-lainnya.
+Peran settings.py dalam proyek Django adalah me-*load* variabel *environment* dari *file* .env, meladeni *hosts* di dalam variabel ALLOWED_HOSTS yang mengizinkan *host* tertentu untuk dijalankan sekaligus menghindari serangan HTTP *host header*, mendefinisikan aplikasi yang diinstal, *middleware*, konfigurasi *root* URL, *template-template*, aplikasi WSGI, konfigurasi *database*, validasi kata sandi, dan lain-lainnya.
 
 
 
