@@ -540,7 +540,91 @@ csrf\_token saat membuat form di Django bertujuan untuk melindungi dari serangan
 
 
 
-#### 
+#### **Langkah 1: Implementasi *Skeleton* sebagai Kerangka Views**
+
+
+
+Sebelum kita membuat form, kita perlu membuat suatu skeleton yang berfungsi sebagai kerangka views dari situs web kita. Dengan kerangka views ini, kita dapat memastikan adanya konsistensi dalam desain situs web kita serta memperkecil kemungkinan terjadinya redundansi kode.
+
+
+
+Buat direktori templates pada direktori utama (root folder) dan buatlah sebuah berkas HTML baru bernama base.html. Berkas base.html berfungsi sebagai template dasar yang dapat digunakan sebagai kerangka umum untuk halaman web lainnya di dalam proyek. Isilah berkas `base.html` tersebut dengan kode berikut:
+
+
+
+```
+
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+&nbsp;   <meta charset="UTF-8" />
+
+&nbsp;   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+&nbsp;   {% block meta %} {% endblock meta %}
+
+</head>
+
+
+
+<body>
+
+&nbsp;   {% block content %} {% endblock content %}
+
+</body>
+
+</html>
+
+```
+
+
+
+Baris-baris yang dikurung dalam `{% ... %}` disebut dengan template tags Django. Baris-baris inilah yang akan berfungsi untuk memuat data secara dinamis dari Django ke HTML.
+
+
+
+Pada contoh diatas, tag `{% block %}` di Django digunakan untuk mendefinisikan area dalam template yang dapat diganti oleh template turunan. Template turunan akan me-extend template dasar (pada contoh ini base.html) dan mengganti konten di dalam block ini sesuai kebutuhan.
+
+
+
+Buka `settings.py` yang ada pada direktori proyek (football\_news) dan carilah baris yang mengandung variabel `TEMPLATES`. Sesuaikan kode yang ada dengan potongan kode berikut agar berkas base.html terdeteksi sebagai berkas template.
+
+
+
+```
+
+...
+
+TEMPLATES = \[
+
+&nbsp;   {
+
+&nbsp;       'BACKEND': 'django.template.backends.django.DjangoTemplates',
+
+&nbsp;       'DIRS': \[BASE\_DIR / 'templates'], # Tambahkan konten baris ini
+
+&nbsp;       'APP\_DIRS': True,
+
+&nbsp;       ...
+
+&nbsp;   }
+
+]
+
+...
+
+```
+
+
+
+<p style="background-color: lightblue"><b>Info
+
+Dalam beberapa kasus, `APP\_DIRS` pada konfigurasi `TEMPLATES` kamu dapat bernilai `False`. Apabila nilainya `False`, ubah menjadi `True`. `APP\_DIRS` harus bernilai `True`. Hal ini dilakukan agar `templates` milik app (contohnya `main`) diprioritaskan daripada `admin/base\_site.html` milik `django.contrib.admin`. Untuk informasi lebih lanjut, kamu dapat mengakses halaman ini.</b></p>
 
 
 
