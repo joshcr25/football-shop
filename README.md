@@ -1,12 +1,12 @@
-## **Tugas 2**
+Tugas 2
 
-### 
 
-### Jelaskan bagaimana cara kamu mengimplementasikan *checklist* di atas secara *step-by-step* **(bukan hanya sekadar mengikuti tutorial)!**
 
-#### **Langkah 1. Cara membuat Proyek Django:**
+Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial)!
 
-1. Di dalam direktori yang sama, buat berkas `requirements.txt` dan tambahkan beberapa dependencies.
+Langkah 1. Cara membuat Proyek Django:
+
+Di dalam direktori yang sama, buat berkas `requirements.txt` dan tambahkan beberapa dependencies.
 
 
 
@@ -30,7 +30,7 @@ python-dotenv
 
 
 
-2. Lakukan instalasi terhadap dependencies yang ada dengan perintah berikut. Jangan lupa jalankan virtual environment terlebih dahulu sebelum menjalankan perintah berikut.
+Lakukan instalasi terhadap dependencies yang ada dengan perintah berikut. Jangan lupa jalankan virtual environment terlebih dahulu sebelum menjalankan perintah berikut.
 
 
 
@@ -38,23 +38,23 @@ python-dotenv
 
 
 
-3. Buat proyek Django bernama `football\\\_shop` dengan perintah berikut.
+Buat proyek Django bernama `football\\\\\\\_shop` dengan perintah berikut.
 
 
 
-`django-admin startproject football\\\_shop .`
+`django-admin startproject football\\\\\\\_shop .`
 
 
 
-**Peringatan**
+Peringatan
 
 Pastikan karakter `.` tertulis di akhir perintah.
 
 
 
-#### **Langkah 2. Cara membuat aplikasi dengan nama main pada proyek football-shop:**
+Langkah 2. Cara membuat aplikasi dengan nama main pada proyek football-shop:
 
-1. Jalankan perintah berikut untuk membuat aplikasi baru dengan nama main.
+Jalankan perintah berikut untuk membuat aplikasi baru dengan nama main.
 
 
 
@@ -66,27 +66,27 @@ Setelah perintah di atas dijalankan, direktori baru dengan nama main akan terben
 
 
 
-**Peringatan**
+Peringatan
 
 Jika kamu masih bingung mengenai istilah-istilah baru seperti direktori utama, direktori proyek, direktori aplikasi, it's' okay! Kamu akan terbiasa seiring berjalannya waktu. Semangat!
 
 
 
-2. Mendaftarkan aplikasi main ke dalam proyek.
+Mendaftarkan aplikasi main ke dalam proyek.
 
 
 
-Buka berkas `settings.py` di dalam direktori proyek `football\\\_shop`.
+Buka berkas `settings.py` di dalam direktori proyek `football\\\\\\\_shop`.
 
 
 
-Tambahkan `main` ke dalam daftar aplikasi yang ada sebagai elemen paling terakhir. Daftar aplikasi dapat kamu akses pada variabel `INSTALLED\\\_APPS`.
+Tambahkan `main` ke dalam daftar aplikasi yang ada sebagai elemen paling terakhir. Daftar aplikasi dapat kamu akses pada variabel `INSTALLED\\\\\\\_APPS`.
 
 
 
 ```
 
-INSTALLED\\\_APPS = \\\[
+INSTALLED\\\\\\\_APPS = \\\\\\\[
 
     ...,
 
@@ -98,18 +98,19 @@ INSTALLED\\\_APPS = \\\[
 
 
 
-Dengan melakukan langkah-langkah tersebut, kamu telah mendaftarkan aplikasi main ke dalam proyek *football shop* kamu.
+Dengan melakukan langkah-langkah tersebut, kamu telah mendaftarkan aplikasi main ke dalam proyek football shop kamu.
 
 
 
 
 
-#### **Langkah 3. Cara mengonfigurasikan *routing* pada proyek agar dapat menjalankan aplikasi main:**
+Langkah 3. Cara mengonfigurasikan routing pada proyek agar dapat menjalankan aplikasi main:
 
 
 
-1. Buka berkas urls.py di dalam direktori proyek football-news, bukan yang ada di dalam direktori aplikasi main.
-2. Impor fungsi include dari `django.urls`.
+Buka berkas urls.py di dalam direktori proyek football-news, bukan yang ada di dalam direktori aplikasi main.
+
+Impor fungsi include dari `django.urls`.
 
 
 
@@ -125,13 +126,13 @@ from django.urls import path, include
 
 
 
-3. Tambahkan rute URL berikut untuk mengarahkan ke tampilan main di dalam list urlpatterns.
+Tambahkan rute URL berikut untuk mengarahkan ke tampilan main di dalam list urlpatterns.
 
 
 
 ```
 
-urlpatterns = \\\[
+urlpatterns = \\\\\\\[
 
     ...
 
@@ -145,12 +146,13 @@ urlpatterns = \\\[
 
 
 
-4. Jalankan proyek Django kamu dengan python manage.py runserver.
-5. Bukalah `http://localhost:8000/` di web browser untuk melihat halaman yang sudah kamu buat.
+Jalankan proyek Django kamu dengan python manage.py runserver.
+
+Bukalah `http://localhost:8000/` di web browser untuk melihat halaman yang sudah kamu buat.
 
 
 
-#### **Langkah 4. Cara membuat model pada aplikasi main dengan nama Product:**
+Langkah 4. Cara membuat model pada aplikasi main dengan nama Product:
 
 Langkah 1: Mengubah Berkas `models.py` dalam Aplikasi main
 
@@ -174,7 +176,7 @@ from django.db import models
 
 class Product(models.Model):
 
-    CATEGORY\\\_CHOICES = \\\[
+    CATEGORY\\\\\\\_CHOICES = \\\\\\\[
 
         ('transfer', 'Transfer'),
 
@@ -192,31 +194,31 @@ class Product(models.Model):
 
  
 
-    id = models.UUIDField(primary\\\_key=True, default=uuid.uuid4, editable=False)
+    id = models.UUIDField(primary\\\\\\\_key=True, default=uuid.uuid4, editable=False)
 
-    name = models.CharField(max\\\_length = 255)
+    name = models.CharField(max\\\\\\\_length = 255)
 
     price = models.IntegerField(default = 0)
 
     description = models.TextField()
 
-    category = models.CharField(max\\\_length=20, choices=CATEGORY\\\_CHOICES, default='update')
+    category = models.CharField(max\\\\\\\_length=20, choices=CATEGORY\\\\\\\_CHOICES, default='update')
 
     thumbnail = models.URLField(blank=True, null=True)
 
     quantity = models.PositiveIntegerField(default=0)
 
-    brand = models.CharField(max\\\_length=255)
+    brand = models.CharField(max\\\\\\\_length=255)
 
-    year\\\_of\\\_manufacture = models.IntegerField(default=2025) # Tahun pembuatan produk
+    year\\\\\\\_of\\\\\\\_manufacture = models.IntegerField(default=2025) # Tahun pembuatan produk
 
-    year\\\_of\\\_product = models.IntegerField(default=2025) # Tahun produk muncul di toko bola
+    year\\\\\\\_of\\\\\\\_product = models.IntegerField(default=2025) # Tahun produk muncul di toko bola
 
-    is\\\_featured = models.BooleanField(default=False)
+    is\\\\\\\_featured = models.BooleanField(default=False)
 
  
 
-    def \\\_\\\_str\\\_\\\_(self):
+    def \\\\\\\_\\\\\\\_str\\\\\\\_\\\\\\\_(self):
 
         return self.title
 
@@ -228,8 +230,9 @@ Cara membuat sebuah routing pada `urls.py` aplikasi main untuk memetakan fungsi 
 
 
 
-1. Buatlah berkas `urls.py` di dalam direktori `main`.
-2. Isi `urls.py` dengan kode berikut:
+Buatlah berkas `urls.py` di dalam direktori `main`.
+
+Isi `urls.py` dengan kode berikut:
 
 
 
@@ -237,17 +240,17 @@ Cara membuat sebuah routing pada `urls.py` aplikasi main untuk memetakan fungsi 
 
 from django.urls import path
 
-from main.views import show\\\_main
+from main.views import show\\\\\\\_main
 
 
 
-app\\\_name = 'main'
+app\\\\\\\_name = 'main'
 
 
 
-urlpatterns = \\\[
+urlpatterns = \\\\\\\[
 
-    path('', show\\\_main, name='show\\\_main'),
+    path('', show\\\\\\\_main, name='show\\\\\\\_main'),
 
 ]
 
@@ -255,7 +258,7 @@ urlpatterns = \\\[
 
 
 
-#### **Langkah 5. Cara membuat sebuah fungsi pada `views.py` untuk dikembalikan ke dalam sebuah *template* HTML yang menampilkan nama aplikasi serta nama dan kelas kamu:**
+Langkah 5. Cara membuat sebuah fungsi pada `views.py` untuk dikembalikan ke dalam sebuah template HTML yang menampilkan nama aplikasi serta nama dan kelas kamu:
 
 Pada tahap ini, kamu akan menghubungkan komponen view dengan komponen template menggunakan Django.
 
@@ -263,7 +266,7 @@ Pada tahap ini, kamu akan menghubungkan komponen view dengan komponen template m
 
 Langkah 1: Mengintegrasikan Komponen MVT
 
-Kamu akan mengimpor modul yang diperlukan dan membuat fungsi view `show\\\_main`.
+Kamu akan mengimpor modul yang diperlukan dan membuat fungsi view `show\\\\\\\_main`.
 
 
 
@@ -291,13 +294,13 @@ Penjelasan Kode:
 
 Fungsi render akan digunakan untuk render tampilan HTML dengan menggunakan data yang diberikan.
 
-Tambahkan fungsi `show\\\_main` di bawah impor:
+Tambahkan fungsi `show\\\\\\\_main` di bawah impor:
 
 
 
 ```
 
-def show\\\_main(request):
+def show\\\\\\\_main(request):
 
     context = {
 
@@ -321,7 +324,7 @@ Penjelasan Kode:
 
 
 
-Potongan kode di atas mendeklarasikan fungsi `show\\\_main`, yang menerima parameter request. Fungsi ini akan mengatur permintaan HTTP dan mengembalikan tampilan yang sesuai.
+Potongan kode di atas mendeklarasikan fungsi `show\\\\\\\_main`, yang menerima parameter request. Fungsi ini akan mengatur permintaan HTTP dan mengembalikan tampilan yang sesuai.
 
 
 
@@ -389,7 +392,7 @@ Sintaks `Django {{ npm }}, {{ name }} dan {{ class }}`, disebut template variabl
 
 
 
-#### **Langkah 6: Cara membuat sebuah *routing* pada `urls.py` aplikasi main untuk memetakan fungsi yang telah dibuat pada `views.py`**
+Langkah 6: Cara membuat sebuah routing pada `urls.py` aplikasi main untuk memetakan fungsi yang telah dibuat pada `views.py`
 
 
 
@@ -415,7 +418,7 @@ Tambahkan rute URL berikut untuk mengarahkan ke tampilan main di dalam list `url
 
 ```
 
-urlpatterns = \\\[
+urlpatterns = \\\\\\\[
 
     ...
 
@@ -431,15 +434,15 @@ urlpatterns = \\\[
 
  
 
-#### **Langkah 7. Cara men-*deploy* ke PWS agar teman-teman saya dapat diakses melalui Internet:**
+Langkah 7. Cara men-deploy ke PWS agar teman-teman saya dapat diakses melalui Internet:
 
-1. Jalankan perintah berikut untuk membuat migrasi model.
+Jalankan perintah berikut untuk membuat migrasi model.
 
 `python manage.py makemigrations`
 
 
 
-2. Jalankan perintah berikut untuk menerapkan migrasi ke dalam basis data lokal.
+Jalankan perintah berikut untuk menerapkan migrasi ke dalam basis data lokal.
 
 
 
@@ -447,7 +450,7 @@ urlpatterns = \\\[
 
 
 
-3. Simpan semua perubahan ke GitHub dan PWS:
+Simpan semua perubahan ke GitHub dan PWS:
 
 ```
 
@@ -465,43 +468,85 @@ git push pws master
 
 
 
-### Buatlah bagan yang berisi request client ke web aplikasi berbasis Django berserta responnya dan jelaskan pada bagan tersebut kaitan antara `urls.py`, `views.py`, `models.py`, dan berkas `html`!
+Buatlah bagan yang berisi request client ke web aplikasi berbasis Django berserta responnya dan jelaskan pada bagan tersebut kaitan antara `urls.py`, `views.py`, `models.py`, dan berkas `html`!
 
 Link bagan: https://drive.google.com/file/d/1hoyReMOa3Q3JQk4O3hvuKEK9HosL7BuX/view?usp=sharing
 
-Penjelasan bagan tersebut mengenai kaitan antara urls.py, views.py, models.py, dan berkas html: Di kotak "Client Request (Browser / HTTP)", ada metode show\_main(request) dan metode render(request, "main.html", context) di file views.py yang me-*render* main.html, lalu di kotak "urls.py Level Projek Django", jalanlah urls.py. Omong-omong, alur permintaan di bagan adalah "jalan" yang dilalui oleh permintaan pengguna, sedangkan models.py adalah "peta" dari data yang ada di "tujuan" jalan tersebut. Permintaan dari pengguna, misalnya untuk mendapatkan daftar produk, akan mengikuti alur di bagan, dan *view* yang dituju akan berinteraksi dengan model Product untuk mendapatkan data yang diperlukan dari database dan mengirimkannya kembali ke pengguna.
+Penjelasan bagan tersebut mengenai kaitan antara urls.py, views.py, models.py, dan berkas html: Di kotak "Client Request (Browser / HTTP)", ada metode show\_main(request) dan metode render(request, "main.html", context) di file views.py yang me-render main.html, lalu di kotak "urls.py Level Projek Django", jalanlah urls.py. Omong-omong, alur permintaan di bagan adalah "jalan" yang dilalui oleh permintaan pengguna, sedangkan models.py adalah "peta" dari data yang ada di "tujuan" jalan tersebut. Permintaan dari pengguna, misalnya untuk mendapatkan daftar produk, akan mengikuti alur di bagan, dan view yang dituju akan berinteraksi dengan model Product untuk mendapatkan data yang diperlukan dari database dan mengirimkannya kembali ke pengguna.
 
 
 
-### Jelaskan peran `settings.py` dalam proyek Django!
+Jelaskan peran `settings.py` dalam proyek Django!
 
-Peran settings.py dalam proyek Django adalah me-*load* variabel *environment* dari *file* .env, meladeni *hosts* di dalam variabel ALLOWED\_HOSTS yang mengizinkan *host* tertentu untuk dijalankan sekaligus menghindari serangan HTTP *host header*, mendefinisikan aplikasi yang diinstal, *middleware*, konfigurasi *root* URL, *template-template*, aplikasi WSGI, konfigurasi *database*, validasi kata sandi, dan lain-lainnya.
-
-
-
-### Bagaimana cara kerja migrasi *database* di Django?
-
-Cara kerja migrasi *database* di Django adalah menciptakan berkas migrasi yang berisi perubahan model yang **belum** diaplikasikan ke dalam basis data dengan menggunakan perintah makemigrations, lalu mengaplikasikan perubahan model yang tercantum dalam berkas migrasi ke basis data dengan menjalankan perintah sebelumnya dengan menggunakan perintah migrate.
+Peran settings.py dalam proyek Django adalah me-load variabel environment dari file .env, meladeni hosts di dalam variabel ALLOWED\_HOSTS yang mengizinkan host tertentu untuk dijalankan sekaligus menghindari serangan HTTP host header, mendefinisikan aplikasi yang diinstal, middleware, konfigurasi root URL, template-template, aplikasi WSGI, konfigurasi database, validasi kata sandi, dan lain-lainnya.
 
 
 
-### Menurut Anda, dari semua framework yang ada, mengapa framework Django dijadikan permulaan pembelajaran pengembangan perangkat lunak?
+Bagaimana cara kerja migrasi database di Django?
 
-Karena framework Django *template*-nya membantu banget untuk mengembangkan perangkat lunak dengan cepat. Jadi, pengguna hanya perlu memikirkan isi dari HTML utama, tidak perlu memikirkan bagaimana cara membuat proyeknya dari nol dengan kerangka proyeknya.
+Cara kerja migrasi database di Django adalah menciptakan berkas migrasi yang berisi perubahan model yang belum diaplikasikan ke dalam basis data dengan menggunakan perintah makemigrations, lalu mengaplikasikan perubahan model yang tercantum dalam berkas migrasi ke basis data dengan menjalankan perintah sebelumnya dengan menggunakan perintah migrate.
 
 
 
-### Apakah ada feedback untuk asisten dosen tutorial 1 yang telah kamu kerjakan sebelumnya?
+Menurut Anda, dari semua framework yang ada, mengapa framework Django dijadikan permulaan pembelajaran pengembangan perangkat lunak?
+
+Karena framework Django template-nya membantu banget untuk mengembangkan perangkat lunak dengan cepat. Jadi, pengguna hanya perlu memikirkan isi dari HTML utama, tidak perlu memikirkan bagaimana cara membuat proyeknya dari nol dengan kerangka proyeknya.
+
+
+
+Apakah ada feedback untuk asisten dosen tutorial 1 yang telah kamu kerjakan sebelumnya?
 
 Tidak ada, karena tutorial 1 yang telah saya kerjakan sebelumnya mudah dipahami.
 
 
 
-### Dari mana SaccerBall berasal?
+Dari mana SaccerBall berasal?
 
 Nama SaccerBall dibuat karena nama tersebut tidak ada di Google Play Store dan mudah diingat. Nama tersebut berasal dari plesetan dari kata "Soccer ball", yang merupakan salah satu jenis olahraga bola. Nama ini singkat, unik, dan relevan dengan dunia olahraga bola.
 
 
 
-## **Tugas 3**
+Tugas 3
+
+Jelaskan mengapa kita memerlukan data delivery dalam pengimplementasian sebuah platform?
+
+Karena dengan data delivery dalam bentuk HTML, XML, dan JSON, kita dapat menampilkan konten website seperti teks, gambar, dan tautan di browser (HTML), mengubah bentuk yang dirancang agar mudah dimengerti hanya dengan membacanya karena self-describing (XML dan JSON).
+
+
+
+### Menurutmu, mana yang lebih baik antara XML dan JSON? Mengapa JSON lebih populer dibandingkan XML?
+
+Yang lebih baik adalah JSON karena nama key-nya gk perlu disebutkan dua kali seperti XML. Omong-omong, JSON lebih populer dari XML karena sintaksnya lebih ringan, mudah dibaca manusia dibandingkan XML.
+
+
+
+
+
+### Jelaskan fungsi dari method is\_valid() pada form Django dan mengapa kita membutuhkan method tersebut?
+
+Metode is\_valid() di Django diperlukan untuk memvalidasi data yang dimasukkan pengguna melalui formulir, memastikan data tersebut aman, dan mengecek apakah itu sesuai dengan persyaratan yang ditentukan oleh definisi kolom formulir. Validasi ini penting untuk keamanan aplikasi, mencegah data tidak valid masuk ke basis data, dan menampilkan pesan kesalahan yang relevan kepada pengguna jika ada data yang tidak sesuai format formulir. 
+
+
+
+### Mengapa kita membutuhkan csrf\_token saat membuat form di Django? Apa yang dapat terjadi jika kita tidak menambahkan csrf\_token pada form Django? Bagaimana hal tersebut dapat dimanfaatkan oleh penyerang?
+
+
+
+csrf\_token saat membuat form di Django bertujuan untuk melindungi dari serangan berbahaya, di mana peretas mengelabui pengguna untuk melakukan tindakan yang tidak diinginkan atas namanya sendiri. Jika kita tidak menambahkannya, maka form Django akan rentan terhadap penyerang yang mengelabuinya.
+
+
+
+### Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
+
+
+
+#### 
+
+
+
+### Apakah ada feedback untuk asdos di tutorial 2 yang sudah kalian kerjakan?
+
+
+
+Tidak ada, karena tutorial 2 udh cukup jelas dan runtut.
 
