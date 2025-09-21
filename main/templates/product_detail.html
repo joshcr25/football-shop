@@ -1,17 +1,24 @@
 {% extends 'base.html' %}
 {% block content %}
-<p><a href="{% url 'main:show_main' %}"><button>← Back to News List</button></a></p>
+<p><a href="{% url 'main:show_main' %}"><button>← Back to Product List</button></a></p>
 
 <h1>{{ product.name }}</h1>
-<p><b>{{ product.category }}</b>{% if product.is_featured %} | 
-    <b>Featured</b>{% endif %} | <i>Manufacturing year: {{ product.year_of_manufacture}} | 
-        Product year: {{product.year_of_product}}</i></p>
-
+<p><b>{{ product.category }}</b> | {% if product.is_featured %} | 
+    <b>Featured</b> | {% endif %} <i>Manufacturing year: {{ product.year_of_manufacture}} | 
+        Product year: {{product.year_of_product}}</i><b> | Price: {{ product.price}}
+        </b> | Brand: {{ product.brand }}</p>
 {% if product.thumbnail %}
 <img src="{{ product.thumbnail }}" alt="Product thumbnail" width="300">
 <br /><br />
 {% endif %}
 
 <p>{{ product.description }}</p>
+
+<!-- Tambahkan kode ini -->
+{% if product.user %}
+    <p>Author: {{ product.user.username }}</p>
+{% else %}
+    <p>Author: Anonymous</p>
+{% endif %}
 
 {% endblock content %}
