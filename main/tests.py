@@ -42,7 +42,7 @@ class MainTest(TestCase):
         self.assertEqual(product.year_of_manufacture, 2024)
         self.assertEqual(product.year_of_product, 2024)
         
-    def test_news_default_values(self):
+    def test_product_default_values(self):
         product = Product.objects.create(
             
         )
@@ -127,11 +127,11 @@ class FootballShopFunctionalTest(LiveServerTestCase):
         login_h1 = self.browser.find_element(By.TAG_NAME, "h1")
         self.assertEqual(login_h1.text, "Login")
 
-    def test_create_news(self):
-        # Test create news functionality (requires login)
+    def test_create_product(self):
+        # Test create product functionality (requires login)
         self.login_user()
 
-        # Go to create news page
+        # Go to create product page
         add_button = self.browser.find_element(By.PARTIAL_LINK_TEXT, "Add Product")
         add_button.click()
 
@@ -208,7 +208,7 @@ class FootballShopFunctionalTest(LiveServerTestCase):
     def test_filter_main_page(self):
         # Test filter functionality on main page
         #         
-        # Create news for testing
+        # Create product for testing
         Product.objects.create(
             name="My Test Product",
             description="My product description",
