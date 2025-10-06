@@ -7,6 +7,7 @@
 
 {% block content %}
 {% include 'navbar.html' %}
+
 <div class="bg-gray-50 w-full pt-16 min-h-screen">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
@@ -15,13 +16,18 @@
       <h1 class="text-3xl font-bold text-gray-900 mb-2">Products</h1>
     </div>
 
+    <!-- Button to open modal -->
+    <button onclick="showModal()" class="inline-flex items-center px-4 py-2 bg-white text-green-600 font-semibold outline outline-2 outline-green-600 outline-offset-[-2px] rounded-md hover:bg-green-600 hover:text-white transition-colors mb-4">
+      Create Product by AJAX
+    </button>
+
     <!-- Filter Section -->
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-8 bg-white rounded-lg border border-gray-200 p-4">
       <div class="flex space-x-3 mb-4 sm:mb-0">
-        <a href="?" class="{% if request.GET.filter == 'all' or not request.GET.filter  %} bg-green-600 text-white{% else %}bg-white text-gray-700 border border-gray-300{% endif %} px-4 py-2 rounded-md font-medium transition-colors hover:bg-green-600 hover:text-white">
+        <a id="filter-all" class="bg-green-600 text-white px-4 py-2 rounded-md font-medium transition-colors hover:bg-green-700">
           All Product
         </a>
-        <a href="?filter=my" class="{% if request.GET.filter == 'my' %} bg-green-600 text-white{% else %}bg-white text-gray-700 border border-gray-300{% endif %} px-4 py-2 rounded-md font-medium transition-colors hover:bg-green-600 hover:text-white">
+        <a id="filter-my" class="bg-white text-gray-700 border border-gray-300 px-4 py-2 rounded-md font-medium transition-colors hover:bg-green-600 hover:text-white">
           My Product
         </a>
       </div>
@@ -44,11 +50,11 @@
     <!-- Error State -->
     <div id="error" class="hidden"></div>
 
-    <!-- News Grid -->
+    <!-- Product Grid -->
     <div id="grid" class="hidden"></div>
 
-    <!-- Product Grid -->
-    {% if not product_list %}
+    <!-- Empty State (added for JS compatibility) -->
+    <div id="empty" class="hidden">
       <div class="bg-white rounded-lg border border-gray-200 p-12 text-center">
         <div class="w-32 h-32 mx-auto mb-4">
           <img src="{% static 'image/no-product.jpg' %}" alt="No product available" class="w-full h-full object-contain">
@@ -59,6 +65,10 @@
           Create Product
         </a>
       </div>
+    </div>
+
+    {% if not product_list %}
+      <!-- (Remove the old empty state block here, since it's now handled by JS and the #empty div above) -->
     {% else %}
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {% for product in product_list %}
@@ -131,16 +141,24 @@ function buildProductCardElement(productItem) {
   const editLink = `{% url 'main:edit_product' '00000000-0000-0000-0000-000000000000' %}`.replace('00000000-0000-0000-0000-000000000000', productItem.id);
   const deleteLink = `{% url 'main:delete_product' '00000000-0000-0000-0000-000000000000' %}`.replace('00000000-0000-0000-0000-000000000000', productItem.id);
 
+  const name = DOMPurify.sanitize(productItem.name);
+  const description = DOMPurify.sanitize(productItem.description);
+  const category = DOMPurify.sanitize(productItem.category);
+  const thumbnail = DOMPurify.sanitize(productItem.thumbnail);
+  const quantity = DOMPurify.sanitize(productItem.quantity);
+  const brand = DOMPurify.sanitize(productItem.brand);
+  const year_of_manufacture = DOMPurify.sanitize(productItem.year_of_manufacture);
+  const year_of_product = DOMPurify.sanitize(productItem.year_of_product);
 
-  const categoryLabel = getReadableCategoryName(productItem.category);
+  const categoryLabel = DOMPurify.sanitize(getReadableCategoryName(productItem.category));
   const isFeatured = productItem.is_featured;
 
-  const thumbnailHtml = productItem.thumbnail 
+  const thumbnailHtml = DOMPurify.sanitize(productItem.thumbnail 
     ? `<img src='${productItem.thumbnail}' alt='${productItem.name}' class='w-full h-full object-cover'>` 
-    : `<div class='w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center'></div>`;
+    : `<div class='w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center'></div>`);
 
   const featuredBadge = isFeatured 
-    ? `<span class='inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-yellow-100 text-yellow-800'>Featured</span>` 
+    ? DOMPurify.sanitize(`<span class='inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-yellow-100 text-yellow-800'>Featured</span>`) 
     : '';
   const editDeleteButtons = CURRENT_USER_ID && Number(CURRENT_USER_ID) === Number(productItem.id)
     ? `<div class='flex space-x-2'>
@@ -182,10 +200,10 @@ function buildProductCardElement(productItem) {
 
 // Render all product cards
 function renderAllProductCards(productItems) {
-  productsGridContainer.innerHTML = '';
-  productsItems.forEach(productItem => {
+  productGridContainer.innerHTML = '';
+  productItems.forEach(productItem => {
     const cardElement = buildProductCardElement(productItem);
-    productsGridContainer.appendChild(cardElement);
+    productGridContainer.appendChild(cardElement);
   });
 }
 
@@ -249,6 +267,12 @@ function initializeProductPage() {
 
 // Start application
 initializeProductPage();
+
+// Add event listener to detect product
+document.addEventListener('productAdded', function() {
+    // Refresh data without page reload
+    fetchProductFromServer();
+});
 </script>
 
 {% endblock content %}

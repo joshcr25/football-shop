@@ -1,4 +1,7 @@
 import datetime
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_POST
+from django.utils.html import strip_tags
 from django.http import HttpResponseRedirect, JsonResponse
 from django.http import HttpResponseRedirect
 from django.urls import reverse
@@ -163,3 +166,35 @@ def delete_product(request, id):
     product = get_object_or_404(Product, pk=id)
     product.delete()
     return HttpResponseRedirect(reverse('main:show_main'))
+
+@csrf_exempt
+@require_POST
+def add_product_entry_ajax(request):
+    name = strip_tags(request.POST.get("name"))
+    description = strip_tags(request.POST.get("description"))
+    category = request.POST.get("category")
+    price = request.POST.get("price")
+    thumbnail = request.POST.get("thumbnail")
+    quantity = request.POST.get("quantity")
+    brand = request.POST.get("brand")
+    year_of_manufacture = request.POST.get("year_of_manufacture")
+    year_of_product = request.POST.get("year_of_product")
+    is_featured = request.POST.get("is_featured") == 'on'  # checkbox handling
+    user = request.user
+
+    new_product = Product(
+        name=name, 
+        description=description,
+        category=category,
+        price=price,
+        thumbnail=thumbnail,
+        quantity=quantity,
+        brand=brand,
+        year_of_manufacture=year_of_manufacture,
+        year_of_product=year_of_product,
+        is_featured=is_featured,
+        user=user
+    )
+    new_product.save()
+
+    return HttpResponse(b"CREATED", status=201)

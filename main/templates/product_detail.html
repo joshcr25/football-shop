@@ -31,8 +31,8 @@
             <h3 class="text-lg font-medium text-gray-900 mb-2">Failed to load product</h3>
             <p class="text-gray-500">Please try again later.</p>
         </div>
-        <!-- Article Content -->
-        <article id="article-content" class="bg-white rounded-lg border border-gray-200 overflow-hidden hidden">
+        <!-- Product description -->
+        <article id="product-description" class="bg-white rounded-lg border border-gray-200 overflow-hidden hidden">
             
             <!-- Header -->
             <div class="p-6 sm:p-8">
@@ -40,18 +40,11 @@
                     <!-- Dynamic badges will be inserted here -->
                 </div>
                 
-                <h1 id="article-title" class="text-3xl sm:text-4xl font-bold text-gray-900 leading-tight mb-4">
-                    <!-- Title will be inserted here -->
+                <h1 id="product-name" class="text-3xl sm:text-4xl font-bold text-gray-900 leading-tight mb-4">
+                    <!-- Name will be inserted here -->
                 </h1>
                 
-                <div class="flex flex-wrap items-center text-sm text-gray-500 gap-4">
-                    <time id="article-date">
-                        <!-- Date will be inserted here -->
-                    </time>
-                    <span id="article-views">
-                        <!-- Views will be inserted here -->
-                    </span>
-                </div>
+                
             </div>
 
             <!-- Featured Image -->
@@ -62,23 +55,23 @@
                      class="w-full h-64 sm:h-80 lg:h-96 object-cover rounded-lg">
             </div>
 
-            <!-- Content -->
+            <!-- Product description -->
             <div class="p-6 sm:p-8">
                 <div class="prose prose-lg max-w-none">
-                    <div id="article-content-text" class="text-gray-700 leading-relaxed whitespace-pre-line text-base sm:text-lg">
-                        <!-- Content will be inserted here -->
+                    <div id="product-description-text" class="text-gray-700 leading-relaxed whitespace-pre-line text-base sm:text-lg">
+                        <!-- Product description will be inserted here -->
                     </div>
                 </div>
             </div>
 
-            <!-- Author Info -->
+            <!-- Product Created By Info -->
             <div class="border-t border-gray-200 p-6 sm:p-8 bg-gray-50">
                 <div class="flex items-center justify-between">
                     <div>
                         <div class="font-medium text-gray-900">
-                            <p id="article-author">Author: Loading...</p>
+                            <p id="product-created-by">Created by: Loading...</p>
                         </div>
-                        <p class="text-sm text-gray-500">Author</p>
+                        <p class="text-sm text-gray-500">Created by</p>
                     </div>
                 </div>
             </div>
@@ -94,21 +87,19 @@ const PRODUCT_DETAIL_ENDPOINT = `{% url 'main:show_json_by_id' '00000000-0000-00
 // DOM Elements
 const loadingState = document.getElementById('loading-state');
 const errorState = document.getElementById('error-state');
-const articleContent = document.getElementById('article-content');
+const productDescription = document.getElementById('product-description');
 const badgesContainer = document.getElementById('badges-container');
-const articleTitle = document.getElementById('article-title');
-const articleDate = document.getElementById('article-date');
-const articleViews = document.getElementById('article-views');
+const productName = document.getElementById('productName');
 const featuredImageContainer = document.getElementById('featured-image-container');
 const featuredImage = document.getElementById('featured-image');
-const articleContentText = document.getElementById('article-content-text');
-const articleAuthor = document.getElementById('article-author');
+const productDescriptionText = document.getElementById('product-description');
+const productCreatedBy = document.getElementById('product-created-by');
 
 // Show/hide page sections
 function showState(state) {
     loadingState.classList.toggle('hidden', state !== 'loading');
     errorState.classList.toggle('hidden', state !== 'error');
-    articleContent.classList.toggle('hidden', state !== 'ready');
+    productDescription.classList.toggle('hidden', state !== 'ready');
 }
 
 // Get readable category name
@@ -120,10 +111,10 @@ function getCategoryLabel(categoryCode) {
     return categoryMapping[categoryCode] || categoryCode;
 }
 
-// Render article content
-function renderArticle(product) {
-    // Set title
-    articleTitle.textContent = product.name;
+// Render product content
+function renderProduct(product) {
+    // Set name
+    productName.textContent = product.name;
     document.title = `${product.name} - SaccerBall`;
     
     // Set badges
@@ -156,11 +147,11 @@ function renderArticle(product) {
     }
     
     // Set content
-    articleContentText.textContent = product.description;
+    productDescriptionText.textContent = product.description;
     
     // Set author
-    const authorName = product.user_username || 'Anonymous';
-    articleAuthor.textContent = `Author: ${authorName}`;
+    const CreatorName = product.user_username || 'Anonymous';
+    productCreatedBy.textContent = `Author: ${CreatorName}`;
 }
 
 // Fetch product detail
@@ -177,7 +168,7 @@ async function loadProductDetail() {
         }
 
         const productData = await response.json();
-        renderArticle(productData);
+        renderProduct(productData);
         showState('ready');
     } catch (error) {
         console.error('Error loading product detail:', error);
