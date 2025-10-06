@@ -126,8 +126,8 @@ function getReadableCategoryName(categoryCode) {
 }
 
 function buildProductCardElement(item) {
-    const product = document.createElement('article');
-    product.className = 'bg-white rounded-lg border border-gray-200 hover:shadow-lg transition-shadow duration-300 overflow-hidden flex flex-col h-full';
+    const article = document.createElement('article');
+    article.className = 'bg-white rounded-lg border border-gray-200 hover:shadow-lg transition-shadow duration-300 overflow-hidden flex flex-col h-full';
 
     const linkDetail = `{% url 'main:show_product' '00000000-0000-0000-0000-000000000000' %}`.replace('00000000-0000-0000-0000-000000000000', item.id);
     const linkEdit = `{% url 'main:edit_product' '00000000-0000-0000-0000-000000000000' %}`.replace('00000000-0000-0000-0000-000000000000', item.id);
@@ -138,14 +138,17 @@ function buildProductCardElement(item) {
     const category = DOMPurify.sanitize(item.category);
     const thumbnail = DOMPurify.sanitize(item.thumbnail);
     const isFeatured = item.is_featured;
-    
-    const thumbnailHtml = DOMPurify.sanitize(
-        item.thumbnail ? `<img src='${thumbnail}' alt='${name}' class='w-full h-full object-cover'>` : `<div class='w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center'></div>`
-    );
-    const categoryLabel = DOMPurify.sanitize(getReadableCategoryName(category));
-    const featuredLabel = isFeatured ? DOMPurify.sanitize(`<span class='inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-yellow-100 text-yellow-800'>Featured</span>`) : '';
-    
-    const editDeleteHtml = CURRENT_USER_ID && Number(CURRENT_USER_ID) === Number(item.user_id)
+    const brand = DOMPurify.sanitize(item.brand || '');
+
+    const thumbnailHtml = item.thumbnail
+        ? `<img src='${thumbnail}' alt='${name}' class='w-full h-full object-cover'>`
+        : `<div class='w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center'></div>`;
+    const categoryLabel = getReadableCategoryName(category);
+    const featuredLabel = isFeatured
+        ? `<span class='inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-yellow-100 text-yellow-800'>Featured</span>`
+        : '';
+
+    const editDeleteHtml = CURRENT_USER_ID && String(CURRENT_USER_ID) === String(item.user_id)
         ? `<div class='flex space-x-2'>
             <a href='${linkEdit}' class='text-gray-600 hover:text-gray-700 text-sm transition-colors'>Edit</a>
             <a href='${linkDelete}' class='text-red-600 hover:text-red-700 text-sm transition-colors' onclick='return confirm("Are you sure you want to delete this article?")'>Delete</a>
@@ -160,14 +163,11 @@ function buildProductCardElement(item) {
           </div>
           <div class="absolute top-3 right-3 flex space-x-2">
             ${featuredLabel}
-            ${hotLabel}
           </div>
         </div>
         <div class="p-5 flex flex-col flex-1">
           <div class="flex items-center text-sm text-gray-500 mb-3">
-            <span>${brand}</span>
-            <span class="mx-2">•</span>
-            <span>${newsViews} views</span>
+            <span>Brand: ${brand}</span>
           </div>
           <h3 class="text-lg font-semibold text-gray-900 mb-3 line-clamp-2 leading-tight">
             <a href="${linkDetail}" class="hover:text-green-600 transition-colors">${name}</a>
@@ -179,7 +179,7 @@ function buildProductCardElement(item) {
           </div>
         </div>
     `;
-    
+
     article.innerHTML = cardHtml;
     return article;
 }
@@ -196,11 +196,14 @@ function renderAllProductCards(productItems) {
 // Filter and display product
 function filterAndDisplayProduct() {
   updateFilterButtonsAppearance();
-  
-  const filteredProduct = activeFilter === 'all' 
-    ? allProductData 
-    : allProductData.filter(product => Number(product.id) === Number(CURRENT_USER_ID));
-  
+
+  let filteredProduct;
+  if (activeFilter === 'all') {
+    filteredProduct = allProductData;
+  } else {
+    filteredProduct = allProductData.filter(product => String(product.user_id) === String(CURRENT_USER_ID));
+  }
+
   if (filteredProduct.length === 0) {
     displayPageSection({ showEmpty: true });
   } else {

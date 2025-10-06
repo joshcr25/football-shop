@@ -65,7 +65,7 @@ def show_xml(request):
      return HttpResponse(xml_data, content_type="application/xml")
  
 def show_json(request):
-    product_list = Product.objects.all()
+    product_list = Product.objects.select_related('user').all()
     data = [
         {
             'id': str(product.id),
@@ -79,6 +79,8 @@ def show_json(request):
             'year_of_manufacture': product.year_of_manufacture,
             'year_of_product': product.year_of_product,
             'is_featured': product.is_featured,
+            'user_id': product.user_id,
+            'user_username': product.user.username if product.user_id else None,
         }
         for product in product_list
     ]
@@ -109,7 +111,7 @@ def show_json_by_id(request, product_id):
             'year_of_product': product.year_of_product,
             'is_featured': product.is_featured,
             'user_id': product.user_id,
-            'user_username': product.user if product.user_id else None,
+            'user_username': product.user.username if product.user_id else None,
         }
         return JsonResponse(data)
     except Product.DoesNotExist:
