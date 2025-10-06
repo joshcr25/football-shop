@@ -39,6 +39,7 @@ body {
             <h3 class="text-lg font-medium text-gray-900 mb-2">Failed to load product</h3>
             <p class="text-gray-500">Please try again later.</p>
         </div>
+
         <!-- Product description -->
         <article id="product-description" class="bg-white rounded-lg border border-gray-200 overflow-hidden hidden">
             
@@ -97,10 +98,10 @@ const loadingState = document.getElementById('loading-state');
 const errorState = document.getElementById('error-state');
 const productDescription = document.getElementById('product-description');
 const badgesContainer = document.getElementById('badges-container');
-const productName = document.getElementById('productName');
+const productName = document.getElementById('product-name');
 const featuredImageContainer = document.getElementById('featured-image-container');
 const featuredImage = document.getElementById('featured-image');
-const productDescriptionText = document.getElementById('product-description');
+const productDescriptionText = document.getElementById('product-description-text');
 const productCreatedBy = document.getElementById('product-created-by');
 
 // Show/hide page sections
@@ -158,8 +159,8 @@ function renderProduct(product) {
     productDescriptionText.textContent = product.description;
     
     // Set author
-    const CreatorName = product.user_username || 'Anonymous';
-    productCreatedBy.textContent = `Author: ${CreatorName}`;
+    const creatorName = product.user_username || 'Anonymous';
+    productCreatedBy.textContent = `Created By: ${creatorName}`;
 }
 
 // Fetch product detail

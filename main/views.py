@@ -1,9 +1,8 @@
 import datetime
+from django.utils.html import strip_tags
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
-from django.utils.html import strip_tags
 from django.http import HttpResponseRedirect, JsonResponse
-from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
@@ -27,7 +26,7 @@ def show_main(request):
     
     context = {
         'npm' : '2406395291',
-        'name': 'Josh Christmas Rommlynn',
+        'name': request.user.username,
         'class': 'PBP A',
         'product_list' : product_list,
         'last_login': request.COOKIES.get('last_login', 'Never')
@@ -79,7 +78,7 @@ def show_json(request):
             'brand': product.brand,
             'year_of_manufacture': product.year_of_manufacture,
             'year_of_product': product.year_of_product,
-            'is_featured': product.is_featured
+            'is_featured': product.is_featured,
         }
         for product in product_list
     ]
@@ -109,8 +108,8 @@ def show_json_by_id(request, product_id):
             'year_of_manufacture': product.year_of_manufacture,
             'year_of_product': product.year_of_product,
             'is_featured': product.is_featured,
-            'user_id': product.user,
-            'user_username': product.user.username if product.user else None,
+            'user_id': product.user_id,
+            'user_username': product.user if product.user_id else None,
         }
         return JsonResponse(data)
     except Product.DoesNotExist:

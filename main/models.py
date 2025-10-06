@@ -1,6 +1,6 @@
 import uuid
-from django.db import models
 from django.contrib.auth.models import User
+from django.db import models
 
 class Product(models.Model):
     CATEGORY_CHOICES = [
@@ -20,5 +20,7 @@ class Product(models.Model):
     year_of_product = models.IntegerField(default=2025) # Tahun produk muncul di toko bola
     is_featured = models.BooleanField(default=False)
 
+    def __str__(self):
+        return self.name
     
     
